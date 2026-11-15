@@ -55,7 +55,11 @@ dependencies {
     // Room (database)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
+    implementation(libs.androidx.fragment.ktx)
     // ViewModel + LiveData
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
@@ -70,3 +74,5 @@ dependencies {
     // WorkManager (notifications / reminders)
     implementation(libs.androidx.work.runtime.ktx)
 }
+
+tasks.register("prepareKotlinBuildScriptModel")
