@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tasks_add">Add task</string>
+    <string name="tasks_edit">Edit task</string>
+    <string name="tasks_title_hint">Task title</string>
+    <string name="tasks_description_hint">Description (optional)</string>
+    <string name="tasks_course_label">Course</string>
+    <string name="tasks_no_course">No course</string>
+    <string name="tasks_start_label">Starts</string>
+    <string name="tasks_end_label">Ends</string>
+    <string name="tasks_save">Save</string>
+    <string name="tasks_cancel">Cancel</string>
+    <string name="tasks_delete">Delete</string>
+    <string name="tasks_delete_title">Delete task</string>
+    <string name="tasks_delete_message">Delete \"%1$s\"? It will also disappear from the timetable.</string>
+    <string name="tasks_deleted">Task deleted</string>
+    <string name="tasks_added">Task added – it now appears in the timetable</string>
+    <string name="tasks_empty">No tasks yet. Tap + to add one.</string>
+    <string name="tasks_err_title">Please enter a title</string>
+    <string name="tasks_err_time">End must be after start</string>
+</resources>

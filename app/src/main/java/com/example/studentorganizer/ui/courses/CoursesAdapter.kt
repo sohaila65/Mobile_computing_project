@@ -39,6 +39,9 @@ class CoursesAdapter(
             binding.root.setOnClickListener {
                 onCourseClick(course)
             }
+            binding.btnDeleteCourse.setOnClickListener {
+                onCourseLongClick(course) // same confirm-and-delete flow as long-press
+            }
             binding.root.setOnLongClickListener {
                 onCourseLongClick(course)
                 true

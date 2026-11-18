@@ -55,7 +55,7 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
             onCourseLongClick = { course ->
                 AlertDialog.Builder(requireContext())
                     .setTitle("Delete Course")
-                    .setMessage("Are you sure you want to delete ${course.courseName}?")
+                    .setMessage("Are you sure you want to delete ${course.courseName}? Its notes, timetable sessions and tasks will be removed too.")
                     .setPositiveButton("Delete") { _, _ ->
                         courseViewModel.delete(course)
                         Toast.makeText(requireContext(), "${course.courseName} deleted", Toast.LENGTH_SHORT).show()
@@ -78,34 +78,34 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
         val etInstructorName = dialogView.findViewById<EditText>(R.id.etInstructorName)
         val etCreditHours = dialogView.findViewById<EditText>(R.id.etCreditHours)
 
-        AlertDialog.Builder(requireContext())
+        val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Add Course")
             .setView(dialogView)
-            .setPositiveButton("Add") { dialog, _ ->
-                val courseName = etCourseName.text.toString().trim()
-                val courseCode = etCourseCode.text.toString().trim()
-                val instructorName = etInstructorName.text.toString().trim()
-                val creditHoursStr = etCreditHours.text.toString().trim()
+            .setPositiveButton("Add", null) // real handler below keeps the dialog open when input is invalid
+            .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
+            .create()
+        dialog.show()
 
-                if (courseName.isNotEmpty() && courseCode.isNotEmpty() && creditHoursStr.isNotEmpty()) {
-                    val creditHours = creditHoursStr.toIntOrNull() ?: 0
-                    val newCourse = Course(
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            val courseName = etCourseName.text.toString().trim()
+            val courseCode = etCourseCode.text.toString().trim()
+            val instructorName = etInstructorName.text.toString().trim()
+            val creditHours = etCreditHours.text.toString().trim().toIntOrNull()
+
+            if (courseName.isNotEmpty() && courseCode.isNotEmpty() && creditHours != null) {
+                courseViewModel.insert(
+                    Course(
                         courseName = courseName,
                         courseCode = courseCode,
                         instructorName = instructorName,
                         creditHours = creditHours
                     )
-                    courseViewModel.insert(newCourse)
-                } else {
-                    Toast.makeText(requireContext(), "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
-                }
+                )
                 dialog.dismiss()
+            } else {
+                Toast.makeText(requireContext(), "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .create()
-            .show()
+        }
     }
 
     override fun onDestroyView() {
