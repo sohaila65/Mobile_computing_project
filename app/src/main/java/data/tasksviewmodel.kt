@@ -1,16 +1,14 @@
-package ui.tasks
+package data
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import data.Task
-
-import data.AppDatabase 
+import kotlinx.coroutines.launch
 
 class TasksViewModel(application: Application) : AndroidViewModel(application) {
-    
-    
-     private val taskDao = AppDatabase.getDatabase(application).taskDao()
+
+    private val taskDao = AppDatabase.getInstance(application).taskDao()
     val allTasks = taskDao.getAllTasks().asLiveData()
 
     fun updateTask(task: Task) {
@@ -21,13 +19,13 @@ class TasksViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deleteTask(task: Task) {
         viewModelScope.launch {
-             taskDao.deleteTask(task)
+            taskDao.deleteTask(task)
         }
     }
-    
+
     fun addTask(task: Task) {
         viewModelScope.launch {
-             taskDao.insertTask(task)
+            taskDao.insertTask(task)
         }
     }
 }

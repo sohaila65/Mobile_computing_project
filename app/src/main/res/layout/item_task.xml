@@ -53,6 +53,15 @@
                 tools:text="Mobile Computing (CS401)" />
 
             <TextView
+                android:id="@+id/tvTaskType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                android:visibility="gone"
+                tools:text="EXAM" />
+
+            <TextView
                 android:id="@+id/tvTaskDates"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,5 +78,16 @@
                 android:textColor="?android:attr/textColorSecondary"
                 tools:text="Sketch the main screens." />
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnDeleteTask"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_delete"
+            android:contentDescription="@string/tasks_delete"
+            android:visibility="gone" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
