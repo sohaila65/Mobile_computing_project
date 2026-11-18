@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="timetable_add_session">Add session</string>
+    <string name="timetable_edit_session">Edit session</string>
+    <string name="timetable_save">Save</string>
+    <string name="timetable_cancel">Cancel</string>
+    <string name="timetable_delete">Delete</string>
+    <string name="timetable_delete_title">Delete session</string>
+    <string name="timetable_delete_message">Remove %1$s on %2$s (%3$s) from your timetable?</string>
+    <string name="timetable_deleted">Session deleted</string>
+    <string name="timetable_empty_day">Nothing scheduled on this day</string>
+    <string name="timetable_no_courses">Add a course in the Courses tab first, then schedule it here.</string>
+    <string name="timetable_pick_start">Start time</string>
+    <string name="timetable_pick_end">End time</string>
+    <string name="timetable_location_hint">Location (optional)</string>
+    <string name="timetable_err_time">End time must be after start time</string>
+    <string name="timetable_err_invalid">Invalid day or time</string>
+    <string name="timetable_err_conflict">Overlaps with %1$s (%2$s)</string>
+    <string name="timetable_add_what">Add to timetable</string>
+    <string name="timetable_add_class">Class session</string>
+    <string name="timetable_add_task">Task</string>
+    <string name="timetable_task_time">Task · %1$s</string>
+    <string name="timetable_from">From %1$s</string>
+    <string name="timetable_until">Until %1$s</string>
+    <string name="timetable_all_day">All day</string>
+    <string name="timetable_prev_week">Previous week</string>
+    <string name="timetable_next_week">Next week</string>
+    <string name="timetable_this_week">Go to today</string>
+</resources>

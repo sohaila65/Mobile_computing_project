@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etCourseName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Course Name"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/etCourseCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Course Code"
+        android:inputType="textCapCharacters" />
+
+    <EditText
+        android:id="@+id/etInstructorName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Instructor Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etCreditHours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Credit Hours"
+        android:inputType="number" />
+</LinearLayout>
