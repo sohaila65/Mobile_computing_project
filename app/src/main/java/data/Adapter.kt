@@ -1,12 +1,12 @@
-package ui.tasks
+package data
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import data.Task
-import com.example.mobile_computing_project.databinding.ItemTaskBinding 
+import com.example.studentorganizer.databinding.ItemTaskBinding
 
 class TasksAdapter(
     private val onTaskCheckedChange: (Task, Boolean) -> Unit,
@@ -18,14 +18,16 @@ class TasksAdapter(
         fun bind(task: Task) {
             binding.tvTaskTitle.text = task.title
             binding.tvTaskType.text = task.type
-            binding.cbTaskCompleted.isChecked = task.isCompleted
+            binding.tvTaskType.visibility = View.VISIBLE
+            binding.cbTaskDone.isChecked = task.isCompleted
 
-            binding.cbTaskCompleted.setOnCheckedChangeListener { _, isChecked ->
+            binding.cbTaskDone.setOnCheckedChangeListener { _, isChecked ->
                 if (task.isCompleted != isChecked) {
                     onTaskCheckedChange(task, isChecked)
                 }
             }
 
+            binding.btnDeleteTask.visibility = View.VISIBLE
             binding.btnDeleteTask.setOnClickListener {
                 onDeleteClick(task)
             }
@@ -42,7 +44,7 @@ class TasksAdapter(
     }
 
     class TaskDiffCallback : DiffUtil.ItemCallback<Task>() {
-        override fun areItemsTheSame(oldItem: Task, newItem: Task): taskId == newItem.taskId
+        override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean = oldItem.taskId == newItem.taskId
         override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean = oldItem == newItem
     }
 }

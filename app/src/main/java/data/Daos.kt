@@ -18,6 +18,18 @@ interface TaskDao {
     @Update suspend fun update(task: Task)
     @Delete suspend fun delete(task: Task)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTask(task: Task)
+
+    @Update
+    suspend fun updateTask(task: Task)
+
+    @Delete
+    suspend fun deleteTask(task: Task)
+
+    @Query("SELECT * FROM tasks ORDER BY deadline ASC")
+    fun getAllTasks(): Flow<List<Task>>
+
     @Transaction
     @Query("SELECT * FROM tasks ORDER BY isCompleted, deadline")
     fun getAll(): Flow<List<TaskWithCourse>>

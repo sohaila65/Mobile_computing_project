@@ -1,4 +1,4 @@
-package ui.tasks
+package data
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mobile_computing_project.databinding.FragmentTasksBinding 
+import com.example.studentorganizer.databinding.FragmentTasksBinding
 
 class TasksFragment : Fragment() {
 
@@ -29,9 +29,9 @@ class TasksFragment : Fragment() {
 
         setupRecyclerView()
 
-         viewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
-          tasksAdapter.submitList(tasks)
-         }
+        viewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
+            tasksAdapter.submitList(tasks)
+        }
 
         binding.fabAddTask.setOnClickListener {
         }
@@ -46,7 +46,7 @@ class TasksFragment : Fragment() {
                 viewModel.deleteTask(task)
             }
         )
-        binding.recyclerViewTasks.apply {
+        binding.rvTasks.apply {
             adapter = tasksAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
