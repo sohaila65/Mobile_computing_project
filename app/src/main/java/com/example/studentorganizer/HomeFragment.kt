@@ -32,7 +32,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.tasksFragment.setOnClickListener { goTo(R.id.tasksFragment) }
         binding.notesFragment.setOnClickListener { goTo(R.id.notesFragment) }
         binding.coursesFragment.setOnClickListener { goTo(R.id.coursesFragment) }
-
+        binding.cardProgress.setOnClickListener { goTo(R.id.tasksFragment) }
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             latest = state
@@ -74,10 +74,25 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.tvStatCourses.text = state.courseCount.toString()
         binding.tvStatNotes.text = state.noteCount.toString()
 
+        renderProgress(state)
         renderTodayTasks(state)
         renderNextClass(state.nextClass)
     }
 
+    private fun renderProgress(state: HomeState) {
+        binding.progressTasks.setProgressCompat(state.completionPercent, true)
+        binding.tvProgressPercent.text =
+            getString(R.string.home_progress_percent, state.completionPercent)
+        binding.tvProgressCaption.text =
+            if (state.totalTaskCount == 0) {
+                getString(R.string.home_progress_empty)
+            } else {
+                getString(
+                    R.string.home_progress_caption,
+                    state.completedTaskCount, state.totalTaskCount
+                )
+            }
+    }
     private fun renderTodayTasks(state: HomeState) {
         val container = binding.layoutTodayTasks
         container.removeAllViews()
