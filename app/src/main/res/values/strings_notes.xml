@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notes_expand_collapse">Expand or collapse note details</string>
+    <string name="notes_detail_course">Course</string>
+    <string name="notes_share">Share</string>
+    <string name="notes_delete">Delete</string>
+</resources>
