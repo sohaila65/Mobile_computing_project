@@ -8,13 +8,34 @@ import androidx.lifecycle.viewModelScope
 import com.example.studentorganizer.data.AppDatabase
 import com.example.studentorganizer.data.Course
 import com.example.studentorganizer.data.CourseDao
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 class CourseViewModel(application: Application) : AndroidViewModel(application) {
 
     private val courseDao: CourseDao = AppDatabase.getInstance(application).courseDao()
+    private val searchQuery = MutableStateFlow("")
 
-    val allCourses: LiveData<List<Course>> = courseDao.getAllCourses().asLiveData()
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
+    val allCourses: LiveData<List<Course>> = searchQuery
+        .debounce(300L)
+        .flatMapLatest { query ->
+            val trimmed = query.trim()
+            if (trimmed.isEmpty()) {
+                courseDao.getAllCourses()
+            } else {
+                courseDao.searchCourses(trimmed)
+            }
+        }
+        .asLiveData()
+
+    fun setSearchQuery(query: String) {
+        searchQuery.value = query
+    }
 
     fun insert(course: Course) = viewModelScope.launch {
         courseDao.insertCourse(course)
