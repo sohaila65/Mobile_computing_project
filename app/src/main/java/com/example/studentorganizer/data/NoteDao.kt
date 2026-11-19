@@ -24,4 +24,10 @@ interface NoteDao {
 
     @Query("SELECT * FROM notes ORDER BY createdAt DESC")
     fun getAllNotes(): Flow<List<Note>>
+
+    @Query("SELECT * FROM notes WHERE :query = '' OR title LIKE '%' || :query || '%' OR content LIKE '%' || :query || '%' OR tag LIKE '%' || :query || '%' ORDER BY createdAt DESC")
+    fun searchNotes(query: String): Flow<List<Note>>
+
+    @Query("SELECT * FROM notes WHERE courseId = :courseId AND (:query = '' OR title LIKE '%' || :query || '%' OR content LIKE '%' || :query || '%' OR tag LIKE '%' || :query || '%') ORDER BY createdAt DESC")
+    fun searchNotesForCourse(courseId: Int, query: String): Flow<List<Note>>
 }

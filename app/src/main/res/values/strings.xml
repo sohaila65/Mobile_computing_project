@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Student Organizer</string>
+    <string name="search_courses_hint">Search courses&#8230;</string>
+    <string name="search_notes_hint">Search notes&#8230;</string>
+    <string name="search_tasks_hint">Search tasks&#8230;</string>
+    <string name="courses_empty">No courses yet. Tap + to add one.</string>
+    <string name="courses_search_empty">No courses found matching search.</string>
+    <string name="notes_empty">No notes available.</string>
+    <string name="notes_search_empty">No notes found matching search.</string>
+    <string name="tasks_search_empty">No tasks found matching search.</string>
 </resources>

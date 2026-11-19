@@ -4,9 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,8 @@ class NotesFragment : Fragment(R.layout.fragment_notes) {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewNotes)
         val fabAddNote = view.findViewById<FloatingActionButton>(R.id.fabAddNote)
+        val etSearchNotes = view.findViewById<TextInputEditText>(R.id.etSearchNotes)
+        val tvNotesEmpty = view.findViewById<TextView>(R.id.tvNotesEmpty)
 
         adapter = NotesAdapter(
             onShareClick = { note ->
@@ -52,12 +55,23 @@ class NotesFragment : Fragment(R.layout.fragment_notes) {
         val courseName = arguments?.getString("courseName") ?: ""
 
         if (courseId != -1) {
-            viewModel.getNotesForCourse(courseId).observe(viewLifecycleOwner) { notes ->
-                adapter.submitList(notes)
-            }
+            viewModel.setCourseId(courseId)
         } else {
-            viewModel.allNotes.observe(viewLifecycleOwner) { notes ->
-                adapter.submitList(notes)
+            viewModel.setCourseId(null)
+        }
+
+        etSearchNotes.doOnTextChanged { text, _, _, _ ->
+            viewModel.setSearchQuery(text?.toString() ?: "")
+        }
+
+        viewModel.allNotes.observe(viewLifecycleOwner) { notes ->
+            adapter.submitList(notes)
+            val query = etSearchNotes.text?.toString()?.trim() ?: ""
+            tvNotesEmpty.visibility = if (notes.isEmpty()) View.VISIBLE else View.GONE
+            tvNotesEmpty.text = if (query.isNotEmpty()) {
+                getString(R.string.notes_search_empty)
+            } else {
+                getString(R.string.notes_empty)
             }
         }
 

@@ -24,4 +24,7 @@ interface CourseDao {
 
     @Query("SELECT * FROM courses WHERE courseId = :id")
     fun getCourseById(id: Int): Flow<Course?>
+
+    @Query("SELECT * FROM courses WHERE :query = '' OR courseName LIKE '%' || :query || '%' OR courseCode LIKE '%' || :query || '%' OR instructorName LIKE '%' || :query || '%' OR CAST(creditHours AS TEXT) LIKE '%' || :query || '%'")
+    fun searchCourses(query: String): Flow<List<Course>>
 }

@@ -3,10 +3,10 @@ package com.example.studentorganizer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -31,8 +31,19 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
 
         setupRecyclerView()
 
+        binding.etSearchCourses.doOnTextChanged { text, _, _, _ ->
+            courseViewModel.setSearchQuery(text?.toString() ?: "")
+        }
+
         courseViewModel.allCourses.observe(viewLifecycleOwner) { courses ->
             coursesAdapter.submitList(courses)
+            val query = binding.etSearchCourses.text?.toString()?.trim() ?: ""
+            binding.tvCoursesEmpty.visibility = if (courses.isEmpty()) View.VISIBLE else View.GONE
+            binding.tvCoursesEmpty.text = if (query.isNotEmpty()) {
+                getString(R.string.courses_search_empty)
+            } else {
+                getString(R.string.courses_empty)
+            }
         }
 
         binding.fabAddCourse.setOnClickListener {

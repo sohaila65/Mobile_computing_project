@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.studentorganizer.data.Course
@@ -35,10 +36,20 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
         )
         binding.rvTasks.adapter = tasksAdapter
 
+        binding.etSearchTasks.doOnTextChanged { text, _, _, _ ->
+            viewModel.setSearchQuery(text?.toString() ?: "")
+        }
+
         viewModel.courses.observe(viewLifecycleOwner) { latestCourses = it }
         viewModel.items.observe(viewLifecycleOwner) { items ->
             tasksAdapter.submitList(items)
+            val query = binding.etSearchTasks.text?.toString()?.trim() ?: ""
             binding.tvTasksEmpty.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+            binding.tvTasksEmpty.text = if (query.isNotEmpty()) {
+                getString(R.string.tasks_search_empty)
+            } else {
+                getString(R.string.tasks_empty)
+            }
         }
 
         binding.fabAddTask.setOnClickListener { showTaskDialog(null) }
