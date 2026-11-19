@@ -18,4 +18,12 @@
     <string name="tasks_empty">No tasks yet. Tap + to add one.</string>
     <string name="tasks_err_title">Please enter a title</string>
     <string name="tasks_err_time">End must be after start</string>
+    <!-- Expandable card labels -->
+    <string name="tasks_expand_collapse">Expand or collapse task details</string>
+    <string name="tasks_detail_course">Course</string>
+    <string name="tasks_detail_type">Type</string>
+    <string name="tasks_detail_deadline">Deadline</string>
+    <string name="tasks_detail_status">Status</string>
+    <string name="tasks_status_done">Completed ✓</string>
+    <string name="tasks_status_pending">Pending</string>
 </resources>

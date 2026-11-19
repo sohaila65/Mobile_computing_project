@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="courses_expand_collapse">Expand or collapse course details</string>
+    <string name="courses_detail_code">Code</string>
+    <string name="courses_detail_instructor">Instructor</string>
+    <string name="courses_detail_credits">Credits</string>
+    <string name="courses_view_notes">View Notes</string>
+    <string name="courses_delete">Delete</string>
+</resources>
