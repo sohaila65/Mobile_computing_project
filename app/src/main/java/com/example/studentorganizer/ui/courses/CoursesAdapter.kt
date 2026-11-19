@@ -98,53 +98,87 @@ class CoursesAdapter(
             binding.dividerCourseExpand.visibility = if (expanded) View.VISIBLE else View.GONE
         }
 
+
         private fun animateExpand(expand: Boolean) {
             val panel = binding.layoutCourseExpanded
             val divider = binding.dividerCourseExpand
             val chevron = binding.ivCourseChevron
 
-            panel.measure(
-                View.MeasureSpec.makeMeasureSpec(panel.width, View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-            )
-            val targetH = panel.measuredHeight
-
             if (expand) {
                 divider.visibility = View.VISIBLE
                 panel.visibility = View.VISIBLE
+
+                panel.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+                val parent = panel.parent as ViewGroup
+                val availableWidth = parent.width -
+                        parent.paddingLeft - parent.paddingRight
+
+                panel.measure(
+                    View.MeasureSpec.makeMeasureSpec(
+                        availableWidth,
+                        View.MeasureSpec.EXACTLY
+                    ),
+                    View.MeasureSpec.makeMeasureSpec(
+                        0,
+                        View.MeasureSpec.UNSPECIFIED
+                    )
+                )
+
+                val targetH = panel.measuredHeight
+
                 panel.layoutParams.height = 0
                 panel.requestLayout()
 
                 ValueAnimator.ofInt(0, targetH).apply {
                     duration = 220
                     interpolator = DecelerateInterpolator()
+
                     addUpdateListener { anim ->
                         panel.layoutParams.height = anim.animatedValue as Int
                         panel.requestLayout()
                     }
+
+                    addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: android.animation.Animator) {
+                            panel.layoutParams.height =
+                                ViewGroup.LayoutParams.WRAP_CONTENT
+                            panel.requestLayout()
+                        }
+                    })
+
                     start()
                 }
+
             } else {
                 val startH = panel.height
+
                 ValueAnimator.ofInt(startH, 0).apply {
                     duration = 180
                     interpolator = DecelerateInterpolator()
+
                     addUpdateListener { anim ->
                         panel.layoutParams.height = anim.animatedValue as Int
                         panel.requestLayout()
                     }
+
                     addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: android.animation.Animator) {
                             panel.visibility = View.GONE
-                            panel.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                            panel.layoutParams.height =
+                                ViewGroup.LayoutParams.WRAP_CONTENT
                             divider.visibility = View.GONE
                         }
                     })
+
                     start()
                 }
             }
 
-            chevron.animate().rotation(if (expand) 270f else 90f).setDuration(200).start()
+            chevron.animate()
+                .rotation(if (expand) 270f else 90f)
+                .setDuration(200)
+                .start()
         }
     }
 
