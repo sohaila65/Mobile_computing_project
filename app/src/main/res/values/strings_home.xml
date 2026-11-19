@@ -29,4 +29,10 @@
     <string name="home_share_text_tasks">My Student Organizer summary: %1$d open task(s), %2$d due today.</string>
     <string name="home_share_text_next">Next class: %1$s (%2$s).</string>
     <string name="home_share_text_no_class">No upcoming classes scheduled.</string>
+
+    <!-- Progress card -->
+    <string name="home_progress_title">Task progress</string>
+    <string name="home_progress_percent">%1$d%%</string>
+    <string name="home_progress_caption">%1$d of %2$d tasks completed</string>
+    <string name="home_progress_empty">No tasks yet</string>
 </resources>

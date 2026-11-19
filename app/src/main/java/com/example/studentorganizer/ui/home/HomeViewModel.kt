@@ -14,6 +14,9 @@ import kotlinx.coroutines.flow.combine
 
 data class HomeState(
     val openTaskCount: Int,
+    val completedTaskCount: Int,
+    val totalTaskCount: Int,
+    val completionPercent: Int,
     val courseCount: Int,
     val noteCount: Int,
     val todayTasks: List<Task>,
@@ -46,6 +49,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             coursesById[entry.courseId]?.let { TimetableItem(entry, it) }
         }
         HomeState(
+            completedTaskCount = HomeRules.completedTasks(visibleTasks).size,
+            totalTaskCount = visibleTasks.size,
+            completionPercent = HomeRules.completionPercent(visibleTasks),
             openTaskCount = HomeRules.openTasks(visibleTasks).size,
             courseCount = courses.size,
             noteCount = notes.size,

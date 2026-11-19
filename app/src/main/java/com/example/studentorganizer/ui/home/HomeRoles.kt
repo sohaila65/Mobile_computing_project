@@ -24,6 +24,13 @@ object HomeRules {
 
 
     fun openTasks(tasks: List<Task>): List<Task> = tasks.filter { !it.isCompleted }
+
+    fun completedTasks(tasks: List<Task>): List<Task> =tasks.filter{it.isCompleted}
+
+    fun completionPercent(tasks: List<Task>): Int =
+        if(tasks.isEmpty()) 0
+        else
+            tasks.count { it.isCompleted } * 100 / tasks.size
     fun tasksDueToday(tasks: List<Task>, now: Long): List<Task> {
         val dayStart = startOfDay(now)
         val dayEnd = startOfNextDay(now)
